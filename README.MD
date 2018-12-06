@@ -1,10 +1,13 @@
-## HSLU DASB Project
+# HSLU DASB Project
 
-
-Mitglieder:
+Members:
 
 - Steve Ineichen
 - Remo Schwarzentruber
-- Michael "Michu" Nebroj
+- Michael Nebroj
 - Pascal Inäbnit
 - David Schafer
+
+Documentation:
+[read more](doc/doc.md)
+
