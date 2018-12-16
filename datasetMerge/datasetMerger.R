@@ -64,15 +64,17 @@ google_categories
 
 #add source data colum for apple data frame
 dfAppleStore$source <- "apple"
-dfPlayStore$soruce <- "google"
+dfPlayStore$source <- "google"
 
 head(dfAppleStore)
 head(dfPlayStore)
 
 #Merge the two data frame
-# not working
-dfAppleGoogle <- merge(dfAppleStore, dfPlayStore, by = c("app_name", "category", "price", "rating", "rating_count", "size_bytes", "player_age", "version", "source"))
-head(dfAppleGoogle)
+
+
+dfAppleGoogle <-merge(dfAppleStore, dfPlayStore, all=TRUE, sort=TRUE)
+
+View(dfAppleGoogle)
 
 #matching categories
 #not working
@@ -92,3 +94,4 @@ head(dfAppleGoogle)
 #dfPlayStore$category[which(dfPlayStore$category =="HEALTH_AND_FITNESS")]<-"Health and Fitness"
 
 #dfPlayStore$category[which(dfPlayStore$category =="COMICS")]<-"Entertainment"
+
