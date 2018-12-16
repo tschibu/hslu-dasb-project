@@ -6,8 +6,8 @@ library(ggplot2)
 library(utils)
 
 #Import Data
-dfAppleStore <- read.csv("./AppleStore.csv", header = TRUE)
-dfPlayStore <- read.csv("./googleplaystore.csv", header = TRUE)
+dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE)
+dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE)
 
 head(dfAppleStore)
 head(dfPlayStore)
@@ -61,6 +61,18 @@ apple_categories
 
 google_categories <- list(unique(dfPlayStore$category))
 google_categories
+
+#add source data colum for apple data frame
+dfAppleStore$source <- "apple"
+dfPlayStore$soruce <- "google"
+
+head(dfAppleStore)
+head(dfPlayStore)
+
+#Merge the two data frame
+# not working
+dfAppleGoogle <- merge(dfAppleStore, dfPlayStore, by = c("app_name", "category", "price", "rating", "rating_count", "size_bytes", "player_age", "version", "source"))
+head(dfAppleGoogle)
 
 #matching categories
 #not working
