@@ -29,3 +29,11 @@ ggplot(dfMelt, aes(x=Category, y=Price, fill=Type)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 
+# 2. Creating Linechart with average price differences
+
+dfDiff <- data.frame(df$category.x, df$price.x - df$price.y)
+dfDiff <- rename(dfDiff, c("df.category.x"="Category", "df.price.x...df.price.y"="Difference"))
+head(dfDiff)
+ggplot(data=dfDiff, aes(x=Category, y=Difference)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
