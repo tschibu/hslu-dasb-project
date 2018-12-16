@@ -8,7 +8,7 @@
 
 ## Questions
 
-1. Price (Steve)
+1. Price (David)
     * Which category is the most expensive?
     * Same as 1. but without Games
 2. Rating between Android & Apple (David)
