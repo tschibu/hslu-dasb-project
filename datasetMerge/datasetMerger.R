@@ -7,8 +7,8 @@ library(utils)
 
 #Import Data
 #Mui Importanti: UTF8 Encoding muss ausgewählt werden, sonst sieht alles merkwürdig aus
-dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE, fileEncoding = "UTF-8")
-dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE,fileEncoding = "UTF-8")
+dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE, fileEncoding = "UTF-8", stringsAsFactors = FALSE)
+dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE,fileEncoding = "UTF-8", stringsAsFactors = FALSE)
 
 head(dfAppleStore)
 head(dfPlayStore)
