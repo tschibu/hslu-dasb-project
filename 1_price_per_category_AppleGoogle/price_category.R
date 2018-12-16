@@ -100,8 +100,8 @@ ggplot(data = dfApple_price_cat, mapping = aes(x = prime_genre, y = PriceMean)) 
 
 #Basic Overview (without free Apps)
 
-dfPlay_price_cat_wo_0 <- filter(dfAppleStore, price > 0.1)
-dfPlay_price_cat_wo_0 <- ddply(dfPlay_price_cat_wo_0, .(prime_genre), summarize,  PriceMean=mean(price), PriceMedian=median(price))
+dfApple_price_cat_wo_0 <- filter(dfAppleStore, price > 0.1)
+dfApple_price_cat_wo_0 <- ddply(dfPlay_price_cat_wo_0, .(prime_genre), summarize,  PriceMean=mean(price), PriceMedian=median(price))
 
 ggplot(data = dfPlay_price_cat_wo_0, mapping = aes(x = prime_genre, y = PriceMean)) + 
   geom_point(mapping = aes(color = prime_genre), size = 4 ) +
@@ -204,4 +204,39 @@ ggplot() +
 ##Pie Charts -> code was lost thanks to Github Overwrite
 ####
 
+dfPlay_price_cat_wo_0
+dfApple_price_cat_wo_0
 
+#New Pie Charts for Categories and pricing
+# Get the library.
+library(plotrix)
+
+#--Top7 Google
+# Create data for the graph.
+x <-  c(dfPlay_price_cat_TOP7$PriceMean)
+labels <-  c(dfPlay_price_cat_TOP7$Category)
+piepercent<- round(100*x/sum(x), 1)
+# Give the chart file a name.
+png(file = "2d_Google_CatPrice_Distribution.jpg")
+# Plot the chart.
+pie(x, labels = piepercent, main = "Google: Mean Price Distribution per Category (Top 7)",col = rainbow(length(x)))
+legend("topright", c(dfPlay_price_cat_TOP7$Category), cex = 0.8,
+       fill = rainbow(length(x)))
+# Save the file.
+dev.off()
+
+
+#--Top7 Apple
+
+# Create data for the graph.
+x <-  c(dfApple_price_cat_TOP7$PriceMean)
+labels <-  c(dfApple_price_cat_TOP7$prime_genre)
+piepercent<- round(100*x/sum(x), 1)
+# Give the chart file a name.
+png(file = "2d_Apple_CatPrice_Distribution.jpg")
+# Plot the chart.
+pie(x, labels = piepercent, main = "Apple: Mean Price Distribution per Category (Top 7)",col = rainbow(length(x)))
+legend("topright", c(dfApple_price_cat_TOP7$prime_genre), cex = 0.8,
+       fill = rainbow(length(x)))
+# Save the file.
+dev.off()
