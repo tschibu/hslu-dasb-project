@@ -8,8 +8,8 @@ library(utils)
 #Import Data
 #Mui Importanti: UTF8 Encoding muss ausgewählt werden, sonst sieht alles merkwürdig aus
 
-dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE, fileEncoding = "UTF-8", stringsAsFactors = FALSE)
-dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE,fileEncoding = "UTF-8", stringsAsFactors = FALSE)
+dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE, encoding = "UTF-8", stringsAsFactors = FALSE)
+dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE,encoding = "UTF-8", stringsAsFactors = FALSE)
 
 head(dfAppleStore)
 head(dfPlayStore)
@@ -37,6 +37,7 @@ colnames(dfAppleStore)[which(names(dfAppleStore) == "track_name")] <- "app_name"
 colnames(dfAppleStore)[which(names(dfAppleStore) == "prime_genre")] <- "category"
 colnames(dfAppleStore)[which(names(dfAppleStore) == "user_rating")] <- "rating"
 colnames(dfAppleStore)[which(names(dfAppleStore) == "rating_count_tot")] <- "rating_count"
+colnames(dfAppleStore)[which(names(dfAppleStore) == "size_bytes")] <- "size_bytes_Mb"
 colnames(dfAppleStore)[which(names(dfAppleStore) == "ver")] <- "version"
 colnames(dfAppleStore)[which(names(dfAppleStore) == "cont_rating")] <- "player_age"
 
@@ -45,14 +46,14 @@ colnames(dfPlayStore)[which(names(dfPlayStore) == "App")] <- "app_name"
 colnames(dfPlayStore)[which(names(dfPlayStore) == "Category")] <- "category"
 colnames(dfPlayStore)[which(names(dfPlayStore) == "Rating")] <- "rating"
 colnames(dfPlayStore)[which(names(dfPlayStore) == "Reviews")] <- "rating_count"
-colnames(dfPlayStore)[which(names(dfPlayStore) == "Size")] <- "size_bytes"
+colnames(dfPlayStore)[which(names(dfPlayStore) == "Size")] <- "size_bytes_Mb"
 colnames(dfPlayStore)[which(names(dfPlayStore) == "Price")] <- "price"
 colnames(dfPlayStore)[which(names(dfPlayStore) == "Content.Rating")] <- "player_age"
 colnames(dfPlayStore)[which(names(dfPlayStore) == "Current.Ver")] <- "version"
 
 #Reorder Columns
-dfAppleStore <- dfAppleStore[c("app_name", "category", "price", "rating", "rating_count", "size_bytes", "player_age", "version")]
-dfPlayStore <- dfPlayStore[c("app_name", "category", "price", "rating", "rating_count", "size_bytes", "player_age", "version")]
+dfAppleStore <- dfAppleStore[c("app_name", "category", "price", "rating", "rating_count", "size_bytes_Mb", "player_age", "version")]
+dfPlayStore <- dfPlayStore[c("app_name", "category", "price", "rating", "rating_count", "size_bytes_Mb", "player_age", "version")]
 
 head(dfAppleStore)
 head(dfPlayStore)
@@ -121,15 +122,37 @@ dfPlayStore$player_age[dfPlayStore$player_age==""] <- "4+"
 dfAppleStore$source <- "apple"
 dfPlayStore$source <- "google"
 
-head(dfAppleStore)
-head(dfPlayStore)
+#size_bytes from Playstore: Varies with device --> NA
+dfPlayStore$size_bytes[dfPlayStore$size_bytes_Mb=="Varies with device"] <- NA
+dfPlayStore$version[dfPlayStore$version=="Varies with device"] <- NA
+
+#Delete duplicated Entries in google Set because of different Rating Count Values
+dfPlayStore_cleaned <- dfPlayStore[!duplicated(dfPlayStore$app_name), ]
 
 #Merge the two data frame, only the matching App's
-dfAppleGoogle <-merge(dfAppleStore, dfPlayStore, by="app_name" , sort=TRUE)
+dfAppleGoogle <- merge(dfAppleStore, dfPlayStore_cleaned, by="app_name" , sort=TRUE)
+head(dfAppleGoogle)
+
+#Sizebytes Playstore: convert to Mb
+dfAppleGoogle$size_bytes_Mb.x = round(dfAppleGoogle$size_bytes_Mb.x/(1024*1024), digits=0)
+
+#Sizebytes AppleStore: Remove M from size_bytes_Mb
+dfAppleGoogle$size_bytes_Mb.y = as.numeric(gsub("\\M", "", dfAppleGoogle$size_bytes_Mb.y))
+#remove duplicated size_bytes row
+dfAppleGoogle$size_bytes <- NULL
+
+#price playstore: remove dollar from Playstore Price (y)
+dfAppleGoogle$price.y = as.numeric(gsub("\\$", "", dfAppleGoogle$price.y))
+          
 #sort by name
-dfAppleGoogleSorted <- arrange(dfAppleGoogle, app_name)$
+dfAppleGoogleSorted <- arrange(dfAppleGoogle, app_name)
+
+#Save as csv 
+write.csv(dfAppleGoogleSorted, file = "dfAppleGoogleSorted.csv")
+
 #view
 View(dfAppleGoogleSorted)
+
 
 
 
