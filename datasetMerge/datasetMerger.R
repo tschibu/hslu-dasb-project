@@ -6,8 +6,9 @@ library(ggplot2)
 library(utils)
 
 #Import Data
-dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE)
-dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE)
+#Mui Importanti: UTF8 Encoding muss ausgewählt werden, sonst sieht alles merkwürdig aus
+dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE, fileEncoding = "UTF-8")
+dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE,fileEncoding = "UTF-8")
 
 head(dfAppleStore)
 head(dfPlayStore)
@@ -71,10 +72,10 @@ head(dfPlayStore)
 
 #Merge the two data frame
 
-
 dfAppleGoogle <-merge(dfAppleStore, dfPlayStore, all=TRUE, sort=TRUE)
+dfAppleGoogleSorted <- arrange(dfAppleGoogle, app_name)
+View(dfAppleGoogleSorted)
 
-View(dfAppleGoogle)
 
 #matching categories
 #not working
