@@ -10,7 +10,7 @@
 
 1. Price (Steve)
     * Which category is the most expensive?
-    * Same as 1. but withou Games
+    * Same as 1. but without Games
 2. Rating between Android & Apple (David)
 3. Number of supported languages (Remo)
 4. Do Rating and Price correlate (Pascal)
