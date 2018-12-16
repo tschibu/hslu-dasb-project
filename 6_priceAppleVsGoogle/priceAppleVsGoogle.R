@@ -6,15 +6,26 @@ library(ggplot2)
 library(utils)
 library(gridExtra)
 library(grid)
+library(reshape2)
 
 df <- read.csv("../resources/_dfAppleGoogle_merged.csv", header = TRUE, encoding = "UTF-8", stringsAsFactors = FALSE)
-#View(df)
+#View(df) #Uncomment to view Data
 
-#Zwei Boxplots
-papple <- ggplot(df, aes(x=category.x, y=price.x)) +
-  geom_bar(position="dodge", colour="blue", stat = "identity")
+# 1. Creating Barplot to compare Prices between App Store & Play Store
 
-pgoogle <- ggplot(df, aes(x=category.y, y=price.y)) +
-  geom_bar(position="dodge", colour="red", stat = "identity")
+## Create minimal DataFrame
+dfMin <- data.frame(df$price.x, df$price.y, df$category.x)
+head(dfMin)
+dfMin <- rename(dfMin, c("df.price.x"="App Store", "df.price.y"="Play Store", "df.category.x"="Category"))
 
-grid.arrange(papple, pgoogle)
+## Melt DataFrame to display both Prices in on Barplot
+dfMelt <- melt(dfMin, id.vars='Category')
+head(dfMelt)
+dfMelt <- rename(dfMelt, c("variable"="Type", "value"="Price"))
+
+## Draw Barplot and rotate x Labels
+ggplot(dfMelt, aes(x=Category, y=Price, fill=Type)) +
+  geom_bar(stat='identity', position='dodge') + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
