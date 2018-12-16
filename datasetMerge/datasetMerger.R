@@ -63,6 +63,59 @@ apple_categories
 google_categories <- list(unique(dfPlayStore$category))
 google_categories
 
+#Rename Category Values in Apple Dataframe
+dfAppleStore$category[dfAppleStore$category=="Health & Fitness"] <- "Health and Fitness"
+dfAppleStore$category[dfAppleStore$category=="Photo & Video"] <- "Photo and Video"
+dfAppleStore$category[dfAppleStore$category=="Food & Drink"] <- "Food and Drink"
+dfAppleStore$category[dfAppleStore$category=="Catalogs"] <- "Utilities"
+dfAppleStore$category[dfAppleStore$category=="Music"] <- "Lifestyle"
+dfAppleStore$category[dfAppleStore$category=="Reference"] <- "Utilities"
+
+#Rename Category Values in Google Play Dataframe
+dfPlayStore$category[dfPlayStore$category=="GAME"] <- "Games"
+dfPlayStore$category[dfPlayStore$category=="PRODUCTIVITY"] <- "Productivity"
+dfPlayStore$category[dfPlayStore$category=="WEATHER"] <- "Weather"
+dfPlayStore$category[dfPlayStore$category=="SHOPPING"] <- "Shopping"
+dfPlayStore$category[dfPlayStore$category=="FINANCE"] <- "Finance"
+dfPlayStore$category[dfPlayStore$category=="TOOLS"] <- "Utilities"
+dfPlayStore$category[dfPlayStore$category=="TRAVEL_AND_LOCAL"] <- "Travel"
+dfPlayStore$category[dfPlayStore$category=="DATING"] <- "Social Networking"
+dfPlayStore$category[dfPlayStore$category=="SOCIAL"] <- "Social Networking"
+dfPlayStore$category[dfPlayStore$category=="SPORTS"] <- "Sports"
+dfPlayStore$category[dfPlayStore$category=="BUSINESS"] <- "Business"
+dfPlayStore$category[dfPlayStore$category=="BEAUTY"] <- "Health and Fitness"
+dfPlayStore$category[dfPlayStore$category=="HEALTH_AND_FITNESS"] <- "Health and Fitness"
+dfPlayStore$category[dfPlayStore$category=="COMICS"] <- "Entertainment"
+dfPlayStore$category[dfPlayStore$category=="ENTERTAINMENT"] <- "Entertainment"
+dfPlayStore$category[dfPlayStore$category=="PHOTOGRAPHY"] <- "Photo and Video"
+dfPlayStore$category[dfPlayStore$category=="VIDEO_PLAYERS"] <- "Photo and Video"
+dfPlayStore$category[dfPlayStore$category=="MAPS_AND_NAVIGATION"] <- "Navigation"
+dfPlayStore$category[dfPlayStore$category=="EDUCATION"] <- "Education"
+dfPlayStore$category[dfPlayStore$category=="FAMILY"] <- "Education"
+dfPlayStore$category[dfPlayStore$category=="ART_AND_DESIGN"] <- "Lifestyle"
+dfPlayStore$category[dfPlayStore$category=="LIFESTYLE"] <- "Lifestyle"
+dfPlayStore$category[dfPlayStore$category=="HOUSE_AND_HOME"] <- "Lifestyle"
+dfPlayStore$category[dfPlayStore$category=="AUTO_AND_VEHICLES"] <- "Lifestyle"
+dfPlayStore$category[dfPlayStore$category=="FOOD_AND_DRINK"] <- "Food and Drink"
+dfPlayStore$category[dfPlayStore$category=="PARENTING"] <- "Lifestyle"
+dfPlayStore$category[dfPlayStore$category=="EVENTS"] <- "Lifestyle"
+dfPlayStore$category[dfPlayStore$category=="NEWS_AND_MAGAZINES"] <- "News"
+dfPlayStore$category[dfPlayStore$category=="BOOKS_AND_REFERENCE"] <- "Book"
+dfPlayStore$category[dfPlayStore$category=="MEDICAL"] <- "Medical"
+dfPlayStore$category[dfPlayStore$category=="COMMUNICATION"] <- "Utilities"
+dfPlayStore$category[dfPlayStore$category=="LIBRARIES_AND_DEMO"] <- "Utilities"
+dfPlayStore$category[dfPlayStore$category=="PERSONALIZATION"] <- "Utilities"
+dfPlayStore$category[dfPlayStore$category=="1.9"] <- "Utilities"
+
+#Match Player Age in Google Play Dataframe
+dfPlayStore$player_age[dfPlayStore$player_age=="Everyone"] <- "4+"
+dfPlayStore$player_age[dfPlayStore$player_age=="Teen"] <- "12+"
+dfPlayStore$player_age[dfPlayStore$player_age=="Everyone 10+"] <- "9+"
+dfPlayStore$player_age[dfPlayStore$player_age=="Mature 17+"] <- "17+"
+dfPlayStore$player_age[dfPlayStore$player_age=="Adults only 18+"] <- "17+"
+dfPlayStore$player_age[dfPlayStore$player_age=="Unrated"] <- "4+"
+dfPlayStore$player_age[dfPlayStore$player_age==""] <- "4+"
+
 #add source data colum for apple data frame
 dfAppleStore$source <- "apple"
 dfPlayStore$source <- "google"
@@ -77,22 +130,4 @@ dfAppleGoogleSorted <- arrange(dfAppleGoogle, app_name)
 View(dfAppleGoogleSorted)
 
 
-#matching categories
-#not working
-#dfPlayStore$category[which(dfPlayStore$category =="PRODUCTIVITY")]<-"Productivity"
-#dfPlayStore$category[which(dfPlayStore$category =="WEATHER")]<-"Weather"
-#dfPlayStore$category[which(dfPlayStore$category =="SHOPPING")]<-"Shopping"
-#dfPlayStore$category[which(dfPlayStore$category =="FINANCE")]<-"Finance"
-#dfPlayStore$category[which(dfPlayStore$category =="TOOLS")]<-"Utilities"
-#dfPlayStore$category[which(dfPlayStore$category =="TRAVEL_AND_LOCAL")]<-"Travel"
-#dfPlayStore$category[which(dfPlayStore$category =="DATING")]<-"Social"
-#dfPlayStore$category[which(dfPlayStore$category =="SOCIAL")]<-"Social"
-#dfPlayStore$category[which(dfPlayStore$category =="SPORTS")]<-"Sports"
-#dfPlayStore$category[which(dfPlayStore$category =="BUSINESS")]<-"Business"
-
-#dfAppleStore$category[which(dfAppleStore$category =="Health & Fitness")]<-"Health and Fitness"
-#dfPlayStore$category[which(dfPlayStore$category =="BEAUTY")]<-"Health and Fitness"
-#dfPlayStore$category[which(dfPlayStore$category =="HEALTH_AND_FITNESS")]<-"Health and Fitness"
-
-#dfPlayStore$category[which(dfPlayStore$category =="COMICS")]<-"Entertainment"
 
