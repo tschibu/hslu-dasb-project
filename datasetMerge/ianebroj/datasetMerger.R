@@ -17,7 +17,6 @@ par(mar=c(8,3,1,1))
 
 #Import Data
 #Mui Importanti: UTF8 Encoding muss ausgewählt werden, sonst sieht alles merkwürdig aus
-
 dfPlayStore <- read.csv("../../resources/googleplaystore.csv", header = TRUE, stringsAsFactors = FALSE)
 head(dfPlayStore)
 
