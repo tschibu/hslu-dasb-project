@@ -7,8 +7,14 @@ library(utils)
 
 #Import Data
 #Mui Importanti: UTF8 Encoding muss ausgewählt werden, sonst sieht alles merkwürdig aus
+<<<<<<< HEAD
 dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE, fileEncoding = "UTF-8", stringsAsFactors = FALSE)
 dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE,fileEncoding = "UTF-8", stringsAsFactors = FALSE)
+=======
+dfAppleStore <- read.csv("../resources/AppleStore.csv", header = TRUE, encoding = "UTF-8")
+dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE, encoding = "UTF-8")
+
+>>>>>>> 9e5f5d086c8026ab066c6f892b9bfc4db771ffd6
 
 head(dfAppleStore)
 head(dfPlayStore)
@@ -123,10 +129,11 @@ dfPlayStore$source <- "google"
 head(dfAppleStore)
 head(dfPlayStore)
 
-#Merge the two data frame
-
-dfAppleGoogle <-merge(dfAppleStore, dfPlayStore, all=TRUE, sort=TRUE)
-dfAppleGoogleSorted <- arrange(dfAppleGoogle, app_name)
+#Merge the two data frame, only the matching App's
+dfAppleGoogle <-merge(dfAppleStore, dfPlayStore, by="app_name" , sort=TRUE)
+#sort by name
+dfAppleGoogleSorted <- arrange(dfAppleGoogle, app_name)$
+#view
 View(dfAppleGoogleSorted)
 
 
