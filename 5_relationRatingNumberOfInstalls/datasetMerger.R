@@ -5,6 +5,7 @@ library(dplyr)
 library(ggplot2)
 library(utils)
 library(corrgram)
+library(GGally)
 
 #define plotting colors
 c1 <- rainbow(6)
@@ -17,7 +18,7 @@ par(mar=c(8,3,1,1))
 
 #Import Data
 #Mui Importanti: UTF8 Encoding muss ausgewählt werden, sonst sieht alles merkwürdig aus
-dfPlayStore <- read.csv("../../resources/googleplaystore.csv", header = TRUE, stringsAsFactors = FALSE)
+dfPlayStore <- read.csv("../resources/googleplaystore.csv", header = TRUE, stringsAsFactors = FALSE)
 head(dfPlayStore)
 
 #look at all values in "installs" column
@@ -68,6 +69,9 @@ mean(df$Rating)
 
 #check for correlatoin
 cor(df$Rating, df$InstallsNumeric)
+
+#plot correlation
+ggpairs(df, columns = c("InstallsNumeric", "Rating"))
 
 #count how often each value is repeated
 installNumberNumericTable = table(df$InstallsNumeric)
